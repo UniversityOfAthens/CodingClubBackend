@@ -46,6 +46,9 @@ const fetchAnnouncements = async () => {
             '1304751945034108958': 'hackathons',
         };
 
+        const idOfAnnouncements = '1304763826050302036';
+        const idOfImportant = '1315678143683493898'
+
         // Create files to avoid "file not found" error
         for (let fileName of allFileNames) {
             const filePath = `${OUTPUT_DIR}/${fileName}.md`;
@@ -56,9 +59,13 @@ const fetchAnnouncements = async () => {
             let fileNames = [];
         
             // If the message mentions @everyone, include announcement to general
-            if (msg.mention_everyone) {
+            if (msg.mention_everyone || idOfAnnouncements in msg.mention_roles) {
                 fileNames.push("general");
             } 
+
+            if (idOfImportant in msg.mention_roles) {
+                filesNames.push("important");
+            }
 
             // Include respective file name for each mentioned role
             for (let roleId of msg.mention_roles) {
