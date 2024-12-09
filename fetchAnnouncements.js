@@ -64,7 +64,7 @@ const fetchAnnouncements = async () => {
             } 
 
             if (idOfImportant in msg.mention_roles) {
-                filesNames.push("important");
+                fileNames.push("important");
             }
 
             // Include respective file name for each mentioned role
