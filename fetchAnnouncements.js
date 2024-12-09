@@ -38,9 +38,9 @@ const fetchAnnouncements = async () => {
         );
     
         const messages = response.data;
-        const allFileNames = ["competitive programming", "security", "gamedev", "hackathons", "open source"];
+        const allFileNames = ["cp", "security", "gamedev", "hackathons", "open source", "important", "general"];
         const roleToClubMapping = {
-            '1304747907597078569': 'competitive programming',
+            '1304747907597078569': 'cp',
             '1305879385454280745': 'security',
             '1304745885212868658': 'gamedev',
             '1304751945034108958': 'hackathons',
