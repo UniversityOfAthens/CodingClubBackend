@@ -36,7 +36,7 @@ const fetchAnnouncements = async () => {
                 },
             }
         );
-
+    
         const messages = response.data;
         const allFileNames = ["competitive programming", "security", "gamedev", "hackathons", "open source"];
         const roleToClubMapping = {
@@ -44,10 +44,9 @@ const fetchAnnouncements = async () => {
             '1305879385454280745': 'security',
             '1304745885212868658': 'gamedev',
             '1304751945034108958': 'hackathons',
+            '1315678143683493898': 'important',
+            '1304763826050302036': 'general'
         };
-
-        const idOfAnnouncements = '1304763826050302036';
-        const idOfImportant = '1315678143683493898'
 
         // Create files to avoid "file not found" error
         for (let fileName of allFileNames) {
@@ -59,25 +58,23 @@ const fetchAnnouncements = async () => {
             let fileNames = [];
         
             // If the message mentions @everyone, include announcement to general
-            if (msg.mention_everyone || idOfAnnouncements in msg.mention_roles) {
+            if (msg.mention_everyone) {
                 fileNames.push("general");
             } 
-
-            if (idOfImportant in msg.mention_roles) {
-                fileNames.push("important");
-            }
+    
 
             // Include respective file name for each mentioned role
             for (let roleId of msg.mention_roles) {
                 const clubName = roleToClubMapping[roleId];
                 if (clubName) {
                     fileNames.push(clubName);
-                }
+                } 
             }
         
             // Write content to files
             for (let fileName of fileNames) {
                 const filePath = `${OUTPUT_DIR}/${fileName}.md`;
+                console.log(filePath)
                 const markdownContent = `### ${formatTimestamp(msg.timestamp)}\n\n\n${msg.content}\n\n\n---\n\n\n`;
         
                 fs.appendFileSync(filePath, markdownContent, 'utf8');
