@@ -2,7 +2,7 @@ import express from 'express'
 import fs from 'fs'
 
 const app = express();
-const PORT = 3001;
+const PORT = 3000;
 function fetchAnnouncements(localFile, fileUrl, res) {
     const announcements = []; // Main announcements array
   
