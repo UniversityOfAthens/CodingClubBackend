@@ -1,7 +1,7 @@
 {
   "name": "codingclubbackend",
   "version": "1.0.0",
-  "main": "fetchAnnouncements.js",
+  "main": "fetchAnnouncementsAPI.js",
   "scripts": {
     "start": "node fetchAnnouncements.js & node fetchAnnouncementsAPI.js",
     "test": "nodemon fetchAnnouncements.js"
