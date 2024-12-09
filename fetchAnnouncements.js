@@ -38,14 +38,14 @@ const fetchAnnouncements = async () => {
         );
     
         const messages = response.data;
-        const allFileNames = ["cp", "security", "gamedev", "hackathons", "open source", "important", "general"];
+        const allFileNames = ["cp", "security", "gamedev", "hackathons", "open source", "important", "announcements"];
         const roleToClubMapping = {
             '1304747907597078569': 'cp',
             '1305879385454280745': 'security',
             '1304745885212868658': 'gamedev',
             '1304751945034108958': 'hackathons',
             '1315678143683493898': 'important',
-            '1304763826050302036': 'general'
+            '1304763826050302036': 'announcements'
         };
 
         // Create files to avoid "file not found" error

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "fetchAnnouncements.js",
   "scripts": {
-    "start": "node fetchAnnouncements.js",
+    "start": "node fetchAnnouncements.js & node fetchAnnouncementsAPI.js",
     "test": "nodemon fetchAnnouncements.js"
   },
   "keywords": [],

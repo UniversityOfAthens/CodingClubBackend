@@ -2,7 +2,7 @@ import express from 'express'
 import fs from 'fs'
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 function fetchAnnouncements(localFile, fileUrl, res) {
     const announcements = []; // Main announcements array
   
@@ -62,8 +62,8 @@ function fetchAnnouncements(localFile, fileUrl, res) {
   }
   
 // Route to get the announcements
-app.get('/api/announcements/announcement', (req, res) => {
-const localFile = './assets/announcements/general.md';
+app.get('/api/announcements/announcements', (req, res) => {
+const localFile = './assets/announcements/announcements.md';
 const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/announcements.md';
 
 fetchAnnouncements(localFile, fileUrl, res);
@@ -98,7 +98,7 @@ fetchAnnouncements(localFile, fileUrl, res);
 });
 
 app.get('/api/announcements/opensource', (req, res) => {
-    const localFile = './assets/announcements/hackathons.md';
+    const localFile = './assets/announcements/opensource.md';
     const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/opensource.md';
     
 fetchAnnouncements(localFile, fileUrl, res);
