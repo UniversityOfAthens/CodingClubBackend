@@ -90,8 +90,3 @@ const fetchAnnouncements = async () => {
 schedule.scheduleJob('0 */3 * * *', fetchAnnouncements);
 
 fetchAnnouncements(); // Run immediately on startup
-
-// Start the Express server
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running...');
-});
