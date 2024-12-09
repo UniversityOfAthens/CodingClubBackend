@@ -4,7 +4,7 @@ import axios from 'axios'
 import fs from 'fs'
 import cors from 'cors'
 import schedule from 'node-schedule'
-import formatTimestamp from '../src/general/formatTimestamp.js'
+import formatTimestamp from './formatTimestamp.js'
 import express from 'express'
 
 const app = express();
