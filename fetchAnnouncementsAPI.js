@@ -1,55 +1,66 @@
 import express from 'express'
 import fs from 'fs'
+import cors from "cors"
 
 const app = express();
 const PORT = 3000;
-function fetchAnnouncements(localFile, fileUrl, res) {
-    const announcements = []; // Main announcements array
-  
+
+// Enable CORS for all origins
+app.use(cors());
+
+function fetchAnnouncements(localFile, localDiscordFile, res) {
+    let idCounter = 0;
     // Fetch from local file
     const localFetch = new Promise((resolve, reject) => {
       fs.readFile(localFile, "utf-8", (err, data) => {
-        if (err) {
+        if (err) { // check errors
           console.error("Error reading local file:", err);
-          return resolve([]); // Resolve with an empty array on error
+          return resolve([]);
         }
   
         const localAnnouncements = data
           .split("---")
-          .map((item, index) => ({
-            id: announcements.length + index + 1,
-            content: item.trim(),
-          }));
+          .filter(item => item.length > 3)
+          .map((item, index) => {
+            idCounter++;
+            return (
+            {
+              id: idCounter,
+              content: item.trim(),
+            });
+          });
         resolve(localAnnouncements);
       });
     });
   
     // Fetch from remote file
-    const remoteFetch = fetch(fileUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch remote file: ${response.statusText}`);
+    const localDiscordFetch = new Promise((resolve, reject) => {
+      fs.readFile(localDiscordFile, "utf-8", (err, data) => {
+        if (err) {
+          console.error("Error reading local discord file:", err);
+          return resolve([]); // Resolve with an empty array on error
         }
-        return response.text();
-      })
-      .then((data) => {
-        const remoteAnnouncements = data
+  
+        const localDiscordAnnouncements = data
           .split("---")
-          .map((item, index) => ({
-            id: announcements.length + index + 1,
-            content: item.trim(),
-          }));
-        return remoteAnnouncements;
-      })
-      .catch((error) => {
-        console.error("Error fetching remote file:", error);
-        return []; // Return an empty array on error
+          .filter(item => item.length > 3)
+          .map((item, index) => {
+            idCounter++;
+            return (
+            {
+              id: idCounter,
+              content: item.trim(),
+            });
+          });
+
+        resolve(localDiscordAnnouncements);
       });
+    });
   
     // Wait for both fetches to complete
-    Promise.all([localFetch, remoteFetch])
+    Promise.all([localFetch, localDiscordFetch])
       .then((results) => {
-        // Combine results from both fetches
+        const announcements = [];
         results.forEach((result) => announcements.push(...result));
   
         // Send combined announcements as the response
@@ -61,57 +72,50 @@ function fetchAnnouncements(localFile, fileUrl, res) {
       });
   }
   
-// Route to get the announcements
+//Routes to get the announcements
 app.get('/api/announcements/announcements', (req, res) => {
-const localFile = './assets/announcements/announcements.md';
-const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/announcements.md';
-
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/announcements.md';
+  const localDiscordFiles = './discordAnnouncements/announcements.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 app.get('/api/announcements/gamedev', (req, res) => {
-    const localFile = './assets/announcements/gamedev.md';
-    const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/gamedev.md';
-    
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/gamedev.md';
+  const localDiscordFiles = './discordAnnouncements/gamedev.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 app.get('/api/announcements/cp', (req, res) => {
-    const localFile = './assets/announcements/cp.md';
-    const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/cp.md';
-    
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/cp.md';
+  const localDiscordFiles = './discordAnnouncements/cp.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 app.get('/api/announcements/security', (req, res) => {
-    const localFile = './assets/announcements/security.md';
-    const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/security.md';
-    
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/security.md';
+  const localDiscordFiles = './discordAnnouncements/security.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 app.get('/api/announcements/hackathons', (req, res) => {
-    const localFile = './assets/announcements/hackathons.md';
-    const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/hackathons.md';
-    
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/hackathons.md';
+  const localDiscordFiles = './discordAnnouncements/hackathons.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 app.get('/api/announcements/opensource', (req, res) => {
-    const localFile = './assets/announcements/opensource.md';
-    const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/opensource.md';
-    
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/opensource.md';
+  const localDiscordFiles = './discordAnnouncements/opensource.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 app.get('/api/announcements/important', (req, res) => {
-    const localFile = './assets/announcements/important.md';
-    const fileUrl = 'https://codingclub-4bvs.onrender.com/announcements/important.md';
-    
-fetchAnnouncements(localFile, fileUrl, res);
+  const localFile = './localAnnouncements/important.md';
+  const localDiscordFiles = './discordAnnouncements/important.md';
+  fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
