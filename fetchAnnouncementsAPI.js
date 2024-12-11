@@ -73,9 +73,9 @@ function fetchAnnouncements(localFile, localDiscordFile, res) {
   }
   
 //Routes to get the announcements
-app.get('/api/announcements/announcements', (req, res) => {
-  const localFile = './localAnnouncements/announcements.md';
-  const localDiscordFiles = './discordAnnouncements/announcements.md';
+app.get('/api/announcements/general', (req, res) => {
+  const localFile = './localAnnouncements/general.md';
+  const localDiscordFiles = './discordAnnouncements/general.md';
   fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 

@@ -37,10 +37,10 @@ const fetchAnnouncements = async () => {
             '1304745885212868658': 'gamedev',
             '1304751945034108958': 'hackathons',
             '1315678143683493898': 'important',
-            '1304763826050302036': 'announcements'
+            '1304763826050302036': 'general'
         };
 
-        const allFileNames = ["cp", "security", "gamedev", "hackathons", "opensource", "important", "announcements"];
+        const allFileNames = ["cp", "security", "gamedev", "hackathons", "opensource", "important", "general"];
         // Create files for each section
         for (let fileName of allFileNames) {
             const filePath = `${OUTPUT_DIR}/${fileName}.md`;
