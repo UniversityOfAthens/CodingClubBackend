@@ -69,7 +69,7 @@ function fetchAnnouncements(localFile, localDiscordFile, res) {
       .catch((error) => {
         console.error("Error resolving promises:", error);
         res.status(500).json({ error: "Failed to load announcements" });
-      });
+    });
   }
   
 //Routes to get the announcements

@@ -49,7 +49,11 @@ const fetchAnnouncements = async () => {
 
         for (let msg of messages) {
             let sectionsMentioned = [];
-        
+            // if(msg.mention_roles.includes("website tag"))
+            // {
+            //     // only then do stuff
+            // }
+            console.log(msg);
             // If the message mentions @everyone, include announcement to general
             if (msg.mention_everyone) {
                 sectionsMentioned.push("general");
@@ -65,9 +69,38 @@ const fetchAnnouncements = async () => {
         
             // Write content to files
             for (let sectionName of sectionsMentioned) {
-                const filePath = `${OUTPUT_DIR}/${sectionName}.md`;
-                const markdownContent = `\n###${formatTimestamp(msg.timestamp)}\n${msg.content}\n---`;
-                fs.appendFileSync(filePath, markdownContent, 'utf8');
+                // Read the existing JSON file
+                fs.readFile(filePath, 'utf8', (err, data) => {
+                if (err) {
+                    console.error('Error reading the file:', err);
+                    return;
+                }
+
+                // Parse the JSON data
+                const jsonArray = JSON.parse(data);
+                
+                // get the last object of the array
+                // get its id and increase it by 1 for the new object
+                // could this have bugs? i dont really know
+                let newId = 0;
+                if(jsonArray.length > 0)
+                {
+                    const latestObject = jsonArray[jsonArray.length - 1];
+                    newId = latestObject.id + 1;
+                }
+                const newObject = {id: newId, content: msg.content, date: timestamp};
+                // Append the new object
+                jsonArray.push(newObject);
+
+                // Write the updated JSON back to the file
+                fs.writeFile(`${OUTPUT_DIR}/`, JSON.stringify(jsonArray, null, 2), 'utf8', (err) => {
+                    if (err) {
+                    console.error('Error writing to the file:', err);
+                    return;
+                    }
+                    console.log('Object appended successfully!');
+                });
+                });
             }
         }
     
