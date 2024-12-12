@@ -13,8 +13,10 @@ function fetchAnnouncements(localFile, localDiscordFile, res) {
   const discordFileData = JSON.parse(fs.readFileSync(localDiscordFile, 'utf-8'));
   
   const appendedData = Array.isArray(localFileData) && Array.isArray(discordFileData)
-      ? [...localFileData, ...discordFileData]
-      : { ...localFileData, ...discordFileData };
+      ? [...localFileData]
+      : { ...localFileData };
+      // ? [...localFileData, ...discordFileData]
+      // : { ...localFileData, ...discordFileData };
   
   res.json(appendedData);
 }
