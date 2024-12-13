@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 3000;
-const origin = "https://codingclub.di.uoa.gr/"
+const origin = "https://universityofathens.github.io/CodingClub/"
 
 // Enable CORS for all origins
 app.use(cors({origin}));
