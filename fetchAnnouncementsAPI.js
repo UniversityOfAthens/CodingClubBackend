@@ -1,12 +1,19 @@
 import express from 'express'
 import fs from 'fs'
 import cors from "cors"
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 3000;
 
 // Enable CORS for all origins
 app.use(cors());
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 function fetchAnnouncements(localFile, localDiscordFile, res) {  
   const localFileData = JSON.parse(fs.readFileSync(localFile, 'utf-8'));
