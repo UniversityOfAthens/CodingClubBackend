@@ -10,10 +10,10 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 3000;
-const origin = "https://universityofathens.github.io/CodingClub/"
+//const origin = "https://universityofathens.github.io/CodingClub/"
 
 // Enable CORS for all origins
-app.use(cors({origin}));
+app.use(cors());
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 function fetchAnnouncements(localFile, localDiscordFile, res) {  
