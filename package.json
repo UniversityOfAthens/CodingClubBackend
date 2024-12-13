@@ -4,8 +4,8 @@
   "main": "fetchAnnouncementsAPI.js",
   "type": "module",
   "scripts": {
-    "start": "node fetchAnnouncements.js & node fetchAnnouncementsAPI.js",
-    "test": "nodemon fetchAnnouncements.js; nodemon fetchAnnouncementsAPI.js"
+    "start": "node fetchAnnouncementsDiscord.js & node fetchAnnouncementsAPI.js",
+    "test": "nodemon fetchAnnouncementsDiscord.js; nodemon fetchAnnouncementsAPI.js"
   },
   "keywords": [],
   "author": "",
