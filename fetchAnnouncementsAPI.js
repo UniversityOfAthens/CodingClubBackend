@@ -71,6 +71,11 @@ app.get('/api/announcements/important', (req, res) => {
   fetchAnnouncements(localFile, localDiscordFiles, res);
 });
 
+app.get('/api/talks', (req, res) => {
+  const talksData = JSON.parse(fs.readFileSync('./talks/talks.json', 'utf-8'))
+  res.json(talksData)
+})
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
