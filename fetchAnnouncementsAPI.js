@@ -10,7 +10,6 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 3000;
-const origin = "https://universityofathens.github.io"
 
 // Enable CORS for all origins
 app.use(cors());
@@ -71,6 +70,11 @@ app.get('/api/announcements/important', (req, res) => {
   const localDiscordFiles = './discordAnnouncements/important.json';
   fetchAnnouncements(localFile, localDiscordFiles, res);
 });
+
+app.get('/api/talks', (req, res) => {
+  const talksData = JSON.parse(fs.readFileSync('./talks/talks.json', 'utf-8'))
+  res.json(talksData)
+})
 
 // Start the server
 app.listen(PORT, () => {
