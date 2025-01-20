@@ -24,7 +24,7 @@ function fetchAnnouncements(localFile, localDiscordFile, res) {
       : { ...localFileData };
       // ? [...localFileData, ...discordFileData]
       // : { ...localFileData, ...discordFileData };
-  appendedData.sort((a, b) =>  Date.parse(b.date) - Date.parse(a.date));
+  appendedData.sort((a, b) =>  -Date.parse(b.date) + Date.parse(a.date));
   res.json(appendedData);
 }
   
